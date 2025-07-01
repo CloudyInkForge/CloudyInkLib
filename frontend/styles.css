@@ -1,0 +1,59 @@
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur border border-white/30;
+  }
+  .glass-effect-dark {
+    @apply bg-dark-card/80 backdrop-blur border border-gray-700/30;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .page-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+  .paragraph-appear {
+    @apply opacity-0 transform translate-y-4 page-transition;
+  }
+  .paragraph-appear.active {
+    @apply opacity-100 transform translate-y-0;
+  }
+  .smooth-focus {
+    @apply transition-all duration-300 ease-out;
+  }
+}
+
+/* 深色模式样式 */
+.dark .glass-effect {
+  @apply glass-effect-dark;
+}
+.dark body {
+  @apply bg-gradient-to-br from-dark-bg to-gray-900 text-gray-200;
+}
+.dark .hover\:bg-white\/50:hover {
+  @apply hover:bg-gray-700/50;
+}
+.dark .hover\:bg-gray-100:hover {
+  @apply hover:bg-gray-700;
+}
+.dark .text-gray-500 {
+  @apply text-gray-400;
+}
+/* 添加加载动画 */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* 加载指示器样式 */
+#loading-indicator {
+  z-index: 100;
+  display: none;
+}
+.app-loading #loading-indicator {
+  display: block;
+}
