@@ -196,14 +196,22 @@ function showNextParagraph() {
   void nextParagraph.offsetWidth;
   nextParagraph.classList.add('paragraph-appear', 'active');
   
-  nextParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // 平滑滚动到新段落
+  nextParagraph.scrollIntoView({ 
+    behavior: 'smooth', 
+    block: 'center',
+    inline: 'nearest'
+  });
   
+  // 添加高亮效果
   nextParagraph.classList.add('bg-blue-50', 'dark:bg-blue-900/30');
   setTimeout(() => {
     nextParagraph.classList.remove('bg-blue-50', 'dark:bg-blue-900/30');
   }, 1000);
 }
 
+// 其他函数保持不变...
+4.
 // 加载下一章
 async function loadNextChapter() {
   if (appState.currentChapterIndex >= appState.chapters.length - 1) {

@@ -12,12 +12,10 @@ const appState = {
   isDarkMode: false,
   isSegmentMode: true,
 };
+
 // 启动应用
 document.addEventListener('DOMContentLoaded', () => {
-  // 先加载其他模块
   setupEventListeners();
-  
-  // 然后初始化应用
   initApp().then(() => {
     console.log("应用初始化完成");
   });

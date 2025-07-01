@@ -86,7 +86,6 @@ function toggleTocSidebar() {
   }
 }
 
-// 切换深色模式
 function toggleDarkMode() {
   appState.isDarkMode = !appState.isDarkMode;
   updateDarkMode();
@@ -99,13 +98,20 @@ function updateDarkMode() {
   
   if (appState.isDarkMode) {
     document.documentElement.classList.add('dark');
-    darkModeToggle.innerHTML = '<i class="fa fa-sun text-xl"></i><span class="ml-2 hidden md:inline">浅色模式</span>';
+    // 更新图标为太阳（浅色模式）
+    darkModeToggle.innerHTML = `
+      <i class="fa fa-sun text-xl"></i>
+      <span class="ml-2 hidden md:inline">浅色模式</span>
+    `;
   } else {
     document.documentElement.classList.remove('dark');
-    darkModeToggle.innerHTML = '<i class="fa fa-moon text-xl"></i><span class="ml-2 hidden md:inline">深色模式</span>';
+    // 更新图标为月亮（深色模式）
+    darkModeToggle.innerHTML = `
+      <i class="fa fa-moon text-xl"></i>
+      <span class="ml-2 hidden md:inline">深色模式</span>
+    `;
   }
 }
-
 // 切换阅读模式
 function toggleReadingMode() {
   appState.isSegmentMode = !appState.isSegmentMode;

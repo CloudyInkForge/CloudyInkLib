@@ -79,6 +79,10 @@ function handleTouchEnd(e) {
   const touchEndY = e.changedTouches[0].clientY;
   const touchDiff = appState.touchStartY - touchEndY;
   
+  // 只在内容区域内触发
+  const contentContainer = document.getElementById('content-container');
+  if (!contentContainer.contains(e.target)) return;
+  
   if (touchDiff > appState.touchThreshold) {
     if (!appState.isPlaying) {
       appState.isPlaying = true;

@@ -36,21 +36,25 @@
   <!-- 顶部导航栏 -->
   <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg">
     <div class="flex items-center space-x-2">
+      <!-- 修复切换书籍按钮图标 -->
       <button id="book-toggle-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
-        <i class="fa fa-book-open text-xl"></i>
+        <i class="fa fa-exchange text-xl"></i>
         <span class="ml-2 hidden md:inline">切换书籍</span>
       </button>
       
-      <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
-        <i class="fa fa-bars text-xl"></i>
-        <span class="ml-2 hidden md:inline">目录</span>
-      </button>
-      
+      <!-- 修复后的深色模式按钮 -->
       <button id="dark-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-moon text-xl"></i>
         <span class="ml-2 hidden md:inline">深色模式</span>
       </button>
       
+      <!-- 目录按钮保持不变 -->
+      <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+        <i class="fa fa-bars text-xl"></i>
+        <span class="ml-2 hidden md:inline">目录</span>
+      </button>
+      
+      <!-- 阅读模式按钮保持不变 -->
       <button id="reading-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-book text-xl"></i>
         <span id="reading-mode-text" class="ml-2 hidden md:inline">逐段阅读</span>
