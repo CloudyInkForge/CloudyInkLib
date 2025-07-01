@@ -92,25 +92,19 @@ function toggleDarkMode() {
   localStorage.setItem('darkMode', appState.isDarkMode);
 }
 
-// 更新深色模式UI
 function updateDarkMode() {
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  
   if (appState.isDarkMode) {
     document.documentElement.classList.add('dark');
-    // 更新图标为太阳（浅色模式）
-    darkModeToggle.innerHTML = `
-      <i class="fa fa-sun text-xl"></i>
-      <span class="ml-2 hidden md:inline">浅色模式</span>
-    `;
   } else {
     document.documentElement.classList.remove('dark');
-    // 更新图标为月亮（深色模式）
-    darkModeToggle.innerHTML = `
-      <i class="fa fa-moon text-xl"></i>
-      <span class="ml-2 hidden md:inline">深色模式</span>
-    `;
   }
+}
+
+// 删除整个 toggleDarkMode 函数中的图标切换逻辑
+function toggleDarkMode() {
+  appState.isDarkMode = !appState.isDarkMode;
+  updateDarkMode();
+  localStorage.setItem('darkMode', appState.isDarkMode);
 }
 // 切换阅读模式
 function toggleReadingMode() {
