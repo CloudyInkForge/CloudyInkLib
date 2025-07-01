@@ -36,6 +36,11 @@
   <!-- 顶部导航栏 -->
   <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg">
     <div class="flex items-center space-x-2">
+      <button id="book-toggle-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+        <i class="fa fa-book-open text-xl"></i>
+        <span class="ml-2 hidden md:inline">切换书籍</span>
+      </button>
+      
       <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-bars text-xl"></i>
         <span class="ml-2 hidden md:inline">目录</span>
@@ -52,6 +57,17 @@
       </button>
     </div>
   </header>
+
+  <!-- 书籍列表侧边栏 -->
+  <aside id="book-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl">
+    <div class="p-6 h-full flex flex-col">
+      <h2 class="text-2xl font-bold mb-6 border-b pb-2">书籍列表</h2>
+      <ul id="book-list" class="space-y-3 flex-grow overflow-y-auto"></ul>
+      <button id="close-book" class="mt-4 p-3 rounded-lg hover:bg-gray-100 transition-colors dark:hover:bg-gray-700">
+        <i class="fa fa-times mr-2"></i>关闭
+      </button>
+    </div>
+  </aside>
 
   <!-- 目录侧边栏 -->
   <aside id="toc-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl">
@@ -81,9 +97,9 @@
     </div>
   </main>
 
-  <script src="scripts/app.js"></script>
-  <script src="scripts/book-loader.js"></script>
   <script src="scripts/ui-manager.js"></script>
+  <script src="scripts/book-loader.js"></script>
   <script src="scripts/event-handlers.js"></script>
+  <script src="scripts/app.js"></script>
 </body>
 </html>

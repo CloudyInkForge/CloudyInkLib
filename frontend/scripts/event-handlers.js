@@ -13,11 +13,24 @@ function setupEventListeners() {
   document.addEventListener('touchstart', handleTouchStart);
   document.addEventListener('touchend', handleTouchEnd);
   
+  // 书籍切换按钮点击
+  document.getElementById('book-toggle-btn').addEventListener('click', openBookSidebar);
+  
+  // 关闭书籍侧边栏按钮点击
+  document.getElementById('close-book').addEventListener('click', closeBookSidebar);
+  
   // 目录按钮点击
   tocBtn.addEventListener('click', toggleTocSidebar);
   
   // 关闭目录按钮点击
   closeToc.addEventListener('click', closeTocSidebar);
+  
+  // 点击书籍侧边栏以外区域关闭
+  document.getElementById('book-sidebar').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('book-sidebar')) {
+      closeBookSidebar();
+    }
+  });
   
   // 点击目录以外区域关闭目录
   tocSidebar.addEventListener('click', handleTocSidebarClick);
@@ -31,9 +44,11 @@ function setupEventListeners() {
 
 // 处理文档点击事件
 function handleDocumentClick(e) {
-  // 忽略目录相关点击
+  // 忽略目录和书籍切换相关点击
   if (e.target.closest('#toc-btn') || 
       e.target.closest('#toc-sidebar') || 
+      e.target.closest('#book-toggle-btn') ||
+      e.target.closest('#book-sidebar') ||
       e.target.closest('#dark-mode-toggle') || 
       e.target.closest('#reading-mode-toggle')) {
     return;
@@ -72,16 +87,6 @@ function handleTouchEnd(e) {
     } else {
       showNextParagraph();
     }
-  }
-}
-
-// 切换目录侧边栏
-function toggleTocSidebar() {
-  const tocSidebar = document.getElementById('toc-sidebar');
-  if (tocSidebar.classList.contains('-translate-x-full')) {
-    openTocSidebar();
-  } else {
-    closeTocSidebar();
   }
 }
 

@@ -21,32 +21,45 @@ function checkUserPreferences() {
   }
 }
 
-// 渲染目录
-function renderTableOfContents() {
-  const tocList = document.getElementById('toc-list');
-  tocList.innerHTML = '';
+// 渲染书籍列表
+function renderBookList() {
+  const bookList = document.getElementById('book-list');
+  bookList.innerHTML = '';
   
-  appState.chapters.forEach(chapter => {
+  appState.books.forEach(book => {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = '#';
-    a.textContent = chapter.title;
+    a.textContent = book.title;
     a.classList.add('block', 'p-2', 'rounded', 'hover:bg-gray-100', 'transition-colors', 'dark:hover:bg-gray-700');
     
-    // 高亮当前章节
-    if (chapter.index === appState.currentChapterIndex) {
+    if (book.id === appState.currentBookId) {
       a.classList.add('bg-blue-100', 'dark:bg-blue-900/50');
     }
     
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      loadChapterContent(chapter.index);
-      closeTocSidebar();
+      loadBook(book.id);
     });
     
     li.appendChild(a);
-    tocList.appendChild(li);
+    bookList.appendChild(li);
   });
+}
+
+// 打开书籍侧边栏
+function openBookSidebar() {
+  const bookSidebar = document.getElementById('book-sidebar');
+  bookSidebar.classList.remove('-translate-x-full');
+  document.body.style.overflow = 'hidden';
+  renderBookList();
+}
+
+// 关闭书籍侧边栏
+function closeBookSidebar() {
+  const bookSidebar = document.getElementById('book-sidebar');
+  bookSidebar.classList.add('-translate-x-full');
+  document.body.style.overflow = '';
 }
 
 // 打开目录侧边栏
@@ -61,6 +74,16 @@ function closeTocSidebar() {
   const tocSidebar = document.getElementById('toc-sidebar');
   tocSidebar.classList.add('-translate-x-full');
   document.body.style.overflow = '';
+}
+
+// 切换目录侧边栏
+function toggleTocSidebar() {
+  const tocSidebar = document.getElementById('toc-sidebar');
+  if (tocSidebar.classList.contains('-translate-x-full')) {
+    openTocSidebar();
+  } else {
+    closeTocSidebar();
+  }
 }
 
 // 切换深色模式
@@ -111,3 +134,13 @@ function updateUI() {
     actionHint.textContent = '';
   }
 }
+window.toggleDarkMode = toggleDarkMode;
+window.toggleReadingMode = toggleReadingMode;
+window.toggleTocSidebar = toggleTocSidebar;
+window.closeTocSidebar = closeTocSidebar;
+window.renderTableOfContents = renderTableOfContents;
+window.updateDarkMode = updateDarkMode;
+window.updateReadingModeText = updateReadingModeText;
+window.checkUserPreferences = checkUserPreferences;
+window.openBookSidebar = openBookSidebar;
+window.closeBookSidebar = closeBookSidebar;

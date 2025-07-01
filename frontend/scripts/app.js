@@ -1,5 +1,7 @@
 // 应用状态
 const appState = {
+  currentBookId: '',
+  books: [],
   chapters: [],
   currentChapterIndex: 0,
   currentParagraphIndex: 0,
@@ -10,11 +12,14 @@ const appState = {
   isDarkMode: false,
   isSegmentMode: true,
 };
-
 // 启动应用
 document.addEventListener('DOMContentLoaded', () => {
+  // 先加载其他模块
+  setupEventListeners();
+  
+  // 然后初始化应用
   initApp().then(() => {
-    setupEventListeners();
+    console.log("应用初始化完成");
   });
 });
 
@@ -27,3 +32,6 @@ window.renderTableOfContents = renderTableOfContents;
 window.updateDarkMode = updateDarkMode;
 window.updateReadingModeText = updateReadingModeText;
 window.checkUserPreferences = checkUserPreferences;
+window.openBookSidebar = openBookSidebar;
+window.closeBookSidebar = closeBookSidebar;
+window.loadBook = loadBook;

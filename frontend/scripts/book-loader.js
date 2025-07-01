@@ -1,54 +1,41 @@
-// 渲染目录
-function renderTableOfContents() {
-  const tocList = document.getElementById('toc-list');
-  tocList.innerHTML = '';
-  
-  appState.chapters.forEach(chapter => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = '#';
-    a.textContent = chapter.title;
-    a.classList.add('block', 'p-2', 'rounded', 'hover:bg-gray-100', 'transition-colors', 'dark:hover:bg-gray-700');
-    
-    if (chapter.index === appState.currentChapterIndex) {
-      a.classList.add('bg-blue-100', 'dark:bg-blue-900/50');
+// 加载书籍列表
+async function loadBooks() {
+  try {
+    const response = await fetch('/api/books');
+    if (!response.ok) {
+      throw new Error(`HTTP错误! 状态码: ${response.status}`);
     }
     
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      loadChapterContent(chapter.index);
-      closeTocSidebar();
-    });
+    // 修改后（正确处理数组）
+    const booksData = await response.json();
+    appState.books = booksData.map(book => ({
+      id: book.id,
+      title: book.title
+    }));
     
-    li.appendChild(a);
-    tocList.appendChild(li);
-  });
+    return appState.books;
+  } catch (error) {
+    console.error('加载书籍列表失败:', error);
+    return [];
+  }
 }
 
-// 初始化应用
-async function initApp() {
+// 加载书籍
+async function loadBook(bookId) {
   try {
-    // 加载章节配置
-    const chapters = await loadChapters();
-    appState.chapters = chapters;
+    appState.currentBookId = bookId;
+    appState.chapters = await loadChapters(bookId);
     
-    if (chapters.length === 0) {
-      throw new Error('未找到章节数据');
+    if (appState.chapters.length > 0) {
+      await loadChapterContent(0);
+      renderTableOfContents();
     }
     
-    // 加载第一个章节内容
-    await loadChapterContent(0);
-    
-    // 渲染目录
-    renderTableOfContents();
-    
-    appState.isLoading = false;
-    updateUI();
-    
-    // 检查用户偏好设置
-    checkUserPreferences();
+    // 更新UI
+    document.getElementById('book-sidebar').classList.add('-translate-x-full');
+    document.body.style.overflow = '';
   } catch (error) {
-    console.error('应用初始化失败:', error);
+    console.error('加载书籍失败:', error);
     const chapterTitle = document.getElementById('chapter-title');
     const actionHint = document.getElementById('action-hint');
     chapterTitle.textContent = '加载失败';
@@ -58,14 +45,19 @@ async function initApp() {
 }
 
 // 加载章节配置
-async function loadChapters() {
+async function loadChapters(bookId) {
   try {
-    const response = await fetch('/api/books/坠落之都/chapters');
+    const response = await fetch(`/api/books/${bookId}/chapters`);
     if (!response.ok) {
       throw new Error(`HTTP错误! 状态码: ${response.status}`);
     }
     
-    return await response.json();
+    const chapterData = await response.json();
+    return Object.entries(chapterData).map(([path, title], index) => ({
+      index,
+      path,
+      title
+    }));
   } catch (error) {
     console.error('加载章节配置失败:', error);
     return [];
@@ -104,11 +96,16 @@ async function loadChapterContent(chapterIndex) {
     endMessage.classList.add('hidden');
     actionHint.style.display = 'block';
     
-    // 修复路径问题：替换反斜杠为正斜杠
-    const fixedPath = chapter.path.replace(/\\/g, '/');
+    // 修复路径问题
+    let fixedPath = chapter.path.replace(/\\/g, '/');
+
+      // 确保不以斜杠开头
+    if (fixedPath.startsWith('/')) {
+      fixedPath = fixedPath.substring(1);
+    }
     
     // 加载章节内容文件
-    const response = await fetch(`/api/books/坠落之都/content/${encodeURIComponent(fixedPath)}`);
+    const response = await fetch(`/api/books/${appState.currentBookId}/content/${encodeURIComponent(fixedPath)}`);
     if (!response.ok) {
       throw new Error(`HTTP错误! 状态码: ${response.status}`);
     }
@@ -145,6 +142,33 @@ async function loadChapterContent(chapterIndex) {
     const chapterContent = document.getElementById('chapter-content');
     chapterContent.innerHTML = '<p class="text-red-500">内容加载失败</p>';
   }
+}
+
+// 渲染目录
+function renderTableOfContents() {
+  const tocList = document.getElementById('toc-list');
+  tocList.innerHTML = '';
+  
+  appState.chapters.forEach(chapter => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = chapter.title;
+    a.classList.add('block', 'p-2', 'rounded', 'hover:bg-gray-100', 'transition-colors', 'dark:hover:bg-gray-700');
+    
+    if (chapter.index === appState.currentChapterIndex) {
+      a.classList.add('bg-blue-100', 'dark:bg-blue-900/50');
+    }
+    
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      loadChapterContent(chapter.index);
+      closeTocSidebar();
+    });
+    
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
 }
 
 // 显示下一段内容
@@ -206,8 +230,38 @@ function showEndMessage() {
   endMessage.classList.add('paragraph-appear', 'active');
 }
 
+// 初始化应用
+async function initApp() {
+  try {
+    // 加载书籍列表
+    await loadBooks();
+    
+    if (appState.books.length > 0) {
+      // 默认加载第一本书
+      await loadBook(appState.books[0].id);
+    } else {
+      throw new Error('未找到书籍数据');
+    }
+    
+    appState.isLoading = false;
+    updateUI();
+    
+    // 检查用户偏好设置
+    checkUserPreferences();
+  } catch (error) {
+    console.error('应用初始化失败:', error);
+    const chapterTitle = document.getElementById('chapter-title');
+    const actionHint = document.getElementById('action-hint');
+    chapterTitle.textContent = '加载失败';
+    actionHint.textContent = '请检查网络连接';
+    appState.isLoading = false;
+  }
+}
+
 // 暴露函数给全局作用域
 window.showNextParagraph = showNextParagraph;
 window.loadChapterContent = loadChapterContent;
 window.loadNextChapter = loadNextChapter;
 window.showEndMessage = showEndMessage;
+window.loadBooks = loadBooks;
+window.loadBook = loadBook;
