@@ -62,6 +62,16 @@ function closeBookSidebar() {
   document.body.style.overflow = '';
 }
 
+// 在 ui-manager.js 中添加
+function toggleBookSidebar() {
+  const bookSidebar = document.getElementById('book-sidebar');
+  if (bookSidebar.classList.contains('-translate-x-full')) {
+    openBookSidebar();
+  } else {
+    closeBookSidebar();
+  }
+}
+
 // 打开目录侧边栏
 function openTocSidebar() {
   const tocSidebar = document.getElementById('toc-sidebar');
@@ -144,3 +154,4 @@ window.updateReadingModeText = updateReadingModeText;
 window.checkUserPreferences = checkUserPreferences;
 window.openBookSidebar = openBookSidebar;
 window.closeBookSidebar = closeBookSidebar;
+window.toggleBookSidebar = toggleBookSidebar;

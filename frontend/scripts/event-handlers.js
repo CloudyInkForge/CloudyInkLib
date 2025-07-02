@@ -13,11 +13,10 @@ function setupEventListeners() {
   document.addEventListener('touchstart', handleTouchStart);
   document.addEventListener('touchend', handleTouchEnd);
   
-  // 书籍切换按钮点击
-  document.getElementById('book-toggle-btn').addEventListener('click', openBookSidebar);
-  
-  // 关闭书籍侧边栏按钮点击
-  document.getElementById('close-book').addEventListener('click', closeBookSidebar);
+  document.getElementById('book-toggle-btn').addEventListener('click', toggleBookSidebar);
+
+  // 修改后：
+  document.getElementById('book-toggle-btn').addEventListener('click', toggleBookSidebar);
   
   // 目录按钮点击
   tocBtn.addEventListener('click', toggleTocSidebar);
