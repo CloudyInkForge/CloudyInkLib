@@ -24,7 +24,7 @@
             sans: ['Inter', 'system-ui', 'sans-serif'],
           },
           backdropFilter: {
-            'blur': '12px',
+            'blur': '16px',
           }
         },
       }
@@ -34,26 +34,23 @@
 
 <body class="bg-gradient-to-br from-light to-white min-h-screen font-sans text-dark antialiased">
   <!-- 顶部导航栏 -->
-  <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg">
+  <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg backdrop-blur-lg">
     <div class="flex items-center space-x-2">
-      <!-- 修复切换书籍按钮图标 -->
       <button id="book-toggle-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-exchange text-xl"></i>
         <span class="ml-2 hidden md:inline">切换书籍</span>
       </button>
       
       <button id="dark-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
-        <i class="fa fa-star text-xl"></i> <!-- 使用固定图标 -->
+        <i class="fa fa-star text-xl"></i>
         <span class="ml-2 hidden md:inline">深色模式</span>
       </button>
       
-      <!-- 目录按钮保持不变 -->
       <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-bars text-xl"></i>
         <span class="ml-2 hidden md:inline">目录</span>
       </button>
       
-      <!-- 阅读模式按钮保持不变 -->
       <button id="reading-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
         <i class="fa fa-book text-xl"></i>
         <span id="reading-mode-text" class="ml-2 hidden md:inline">逐段阅读</span>
@@ -62,7 +59,7 @@
   </header>
 
   <!-- 书籍列表侧边栏 -->
-  <aside id="book-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl">
+  <aside id="book-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg">
     <div class="p-6 h-full flex flex-col">
       <h2 class="text-2xl font-bold mb-6 border-b pb-2">书籍列表</h2>
       <ul id="book-list" class="space-y-3 flex-grow overflow-y-auto"></ul>
@@ -73,7 +70,7 @@
   </aside>
 
   <!-- 目录侧边栏 -->
-  <aside id="toc-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl">
+  <aside id="toc-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg">
     <div class="p-6 h-full flex flex-col">
       <h2 class="text-2xl font-bold mb-6 border-b pb-2">章节目录</h2>
       <ul id="toc-list" class="space-y-3 flex-grow overflow-y-auto"></ul>
