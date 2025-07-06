@@ -77,20 +77,59 @@
   }
 }
 
+/* 深色模式全局样式 */
+.dark {
+  background-color: #0f172a; /* 深色背景 */
+  color: #e2e8f0; /* 白色文字 */
+}
+
 .dark .glass-effect {
   @apply glass-effect-dark;
 }
+
 .dark body {
-  @apply bg-gradient-to-br from-dark-bg to-gray-900 text-gray-200;
+  @apply bg-gradient-to-br from-gray-900 to-gray-800;
 }
+
 .dark .hover\:bg-white\/50:hover {
   @apply hover:bg-gray-700/50;
 }
+
 .dark .hover\:bg-gray-100:hover {
   @apply hover:bg-gray-700;
 }
+
 .dark .text-gray-500 {
-  @apply text-gray-400;
+  @apply text-gray-300; /* 更亮的灰色文字 */
+}
+
+/* 深色模式下的文字颜色 */
+.dark h1, .dark h2, .dark h3, .dark p, .dark li, .dark span {
+  color: #e2e8f0;
+}
+
+/* 侧边栏深色模式文字 */
+.dark #book-list a, .dark #toc-list a {
+  color: #cbd5e1;
+}
+
+.dark #book-list a:hover, .dark #toc-list a:hover {
+  color: #f8fafc;
+}
+
+/* 主内容区深色模式文字 */
+.dark #chapter-content {
+  color: #e2e8f0;
+}
+
+/* 操作提示深色模式 */
+.dark #action-hint {
+  color: #94a3b8;
+}
+
+/* 结束消息深色模式 */
+.dark #end-message {
+  color: #cbd5e1;
 }
 
 @keyframes spin {

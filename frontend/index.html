@@ -19,6 +19,8 @@
             dark: '#1E293B',
             'dark-bg': '#0F172A',
             'dark-card': '#1E293B',
+            'light-text': '#F1F5F9',
+            'dark-text': '#0F172A'
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -32,26 +34,26 @@
   </script>
 </head>
 
-<body class="bg-gradient-to-br from-light to-white min-h-screen font-sans text-dark antialiased">
+<body class="min-h-screen font-sans antialiased bg-gradient-to-br from-light to-white dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
   <!-- 顶部导航栏 -->
-  <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg backdrop-blur-lg">
+  <header class="fixed top-0 left-0 z-50 glass-effect p-3 w-full h-[60px] flex items-center shadow-lg backdrop-blur-lg dark:text-light-text">
     <div class="flex items-center space-x-2">
-      <button id="book-toggle-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+      <button id="book-toggle-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors dark:hover:bg-gray-700/50">
         <i class="fa fa-exchange text-xl"></i>
         <span class="ml-2 hidden md:inline">切换书籍</span>
       </button>
       
-      <button id="dark-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+      <button id="dark-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors dark:hover:bg-gray-700/50">
         <i class="fa fa-star text-xl"></i>
         <span class="ml-2 hidden md:inline">深色模式</span>
       </button>
       
-      <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+      <button id="toc-btn" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors dark:hover:bg-gray-700/50">
         <i class="fa fa-bars text-xl"></i>
         <span class="ml-2 hidden md:inline">目录</span>
       </button>
       
-      <button id="reading-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors">
+      <button id="reading-mode-toggle" class="flex items-center justify-center p-2 rounded-full hover:bg-white/50 transition-colors dark:hover:bg-gray-700/50">
         <i class="fa fa-book text-xl"></i>
         <span id="reading-mode-text" class="ml-2 hidden md:inline">逐段阅读</span>
       </button>
@@ -59,7 +61,7 @@
   </header>
 
   <!-- 书籍列表侧边栏 -->
-  <aside id="book-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg">
+  <aside id="book-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg dark:text-light-text">
     <div class="p-6 h-full flex flex-col">
       <h2 class="text-2xl font-bold mb-6 border-b pb-2">书籍列表</h2>
       <ul id="book-list" class="space-y-3 flex-grow overflow-y-auto"></ul>
@@ -70,7 +72,7 @@
   </aside>
 
   <!-- 目录侧边栏 -->
-  <aside id="toc-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg">
+  <aside id="toc-sidebar" class="fixed top-[60px] left-0 h-[calc(100vh-60px)] w-64 glass-effect transform -translate-x-full page-transition z-40 shadow-xl backdrop-blur-lg dark:text-light-text">
     <div class="p-6 h-full flex flex-col">
       <h2 class="text-2xl font-bold mb-6 border-b pb-2">章节目录</h2>
       <ul id="toc-list" class="space-y-3 flex-grow overflow-y-auto"></ul>
@@ -82,16 +84,16 @@
 
   <!-- 主内容区 -->
   <main class="container mx-auto pt-[80px] pb-16 px-4 flex flex-col items-center justify-center min-h-screen">
-    <h1 id="chapter-title" class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-center mb-12 paragraph-appear">加载中...</h1>
+    <h1 id="chapter-title" class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-center mb-12 paragraph-appear dark:text-light-text">加载中...</h1>
     
-    <div id="content-container" class="w-full max-w-3xl glass-effect rounded-2xl p-6 md:p-8 shadow-lg">
+    <div id="content-container" class="w-full max-w-3xl glass-effect rounded-2xl p-6 md:p-8 shadow-lg dark:text-light-text">
       <div id="chapter-content" class="space-y-6 text-lg leading-relaxed"></div>
       
-      <div id="action-hint" class="mt-8 text-center text-gray-500 paragraph-appear">
+      <div id="action-hint" class="mt-8 text-center text-gray-500 paragraph-appear dark:text-gray-300">
         点击或滑动开始阅读
       </div>
       
-      <div id="end-message" class="mt-8 text-4xl font-bold text-center text-gray-400 paragraph-appear hidden">
+      <div id="end-message" class="mt-8 text-4xl font-bold text-center text-gray-400 paragraph-appear hidden dark:text-gray-300">
         完
       </div>
     </div>
